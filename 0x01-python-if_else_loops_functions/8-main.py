@@ -2,5 +2,6 @@
 uppercase = __import__('8-uppercase').uppercase
 
 uppercase("best")
+uppercase("z")
 uppercase("Best School 98 Battery street")
 

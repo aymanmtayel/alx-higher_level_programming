@@ -5,6 +5,8 @@ def roman_to_int(roman_string):
             'L': 50, 'C': 100, 'D': 500, 'M': 1000
             }
     total = 0
+    if not roman_string or not isinstance(roman_string, str):
+        return 0
     if roman_string[0] == 'I':
         total = total - 1
         for i in range(1, len(roman_string)):
@@ -15,4 +17,4 @@ def roman_to_int(roman_string):
     else:
         for char in roman_string:
             total = total + roman_dic.get(char)
-    return total
+    return int(total)

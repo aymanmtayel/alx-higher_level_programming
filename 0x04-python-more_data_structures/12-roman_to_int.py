@@ -17,4 +17,6 @@ def roman_to_int(roman_string):
     else:
         for char in roman_string:
             total = total + roman_dic.get(char)
+    if total < 1:
+        return 0
     return int(total)

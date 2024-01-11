@@ -24,8 +24,8 @@ print("{} = {}".format(roman_number, roman_to_int(roman_number)))
 roman_number = 23232
 print("{} = {}".format(roman_number, roman_to_int(roman_number)))
 
-roman_number = "IIIIIIIII"
+roman_number = "MMCDXXI"
 print("{} = {}".format(roman_number, roman_to_int(roman_number)))
 
-roman_number = "IIIIIIIIIIIIIIIIIIIIIIIIIIV"
+roman_number = "DCCLXXXIX"
 print("{} = {}".format(roman_number, roman_to_int(roman_number)))

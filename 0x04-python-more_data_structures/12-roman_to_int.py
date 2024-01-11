@@ -7,7 +7,7 @@ def roman_to_int(roman_string):
     total = 0
     if not roman_string or not isinstance(roman_string, str):
         return 0
-    if roman_string[0] == 'I':
+    if roman_string[0] == 'I' and roman_string[-1] != 'I':
         total = total - 1
         for i in range(1, len(roman_string)):
             if roman_string[i] == 'I':

@@ -62,8 +62,11 @@ class Square:
             print()
             return
 
-        _k = [print("") for i in range(0, self.__position[1])]
+        for _ in range(0, self.__position[1]):
+            print()
         for _ in range(0, self.__size):
-            _k = [print(" ", end="") for j in range(0, self.__position[0])]
-            _k = [print("#", end="") for k in range(0, self.__size)]
-            print("")
+            for _ in range(0, self.__position[0]):
+                print(" ", end="")
+            for _ in range(0, self.__size):
+                print("#", end="")
+            print()

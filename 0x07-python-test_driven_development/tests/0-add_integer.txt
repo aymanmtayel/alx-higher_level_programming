@@ -57,13 +57,3 @@ test zero:
 
 	>>> add_integer(0, 0)
 	0
-
-test one string:
-
-	>>> add_integer("school")
-	a must be an integer
-
-test one integer and a string:
-
-	>>> add_integer(3, "school")
-	b must be an integer

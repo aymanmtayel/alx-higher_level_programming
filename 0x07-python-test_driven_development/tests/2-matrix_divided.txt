@@ -1,0 +1,31 @@
+The 2-matrix_divided test module
+================================
+
+Using matrix_divided
+--------------------
+
+import module:
+	>>> matrix_divided = __import__('2-matrix_divided').matrix_divided
+
+Test normal division:
+	>>> matrix_divided([[4, 8, 10], [12, 14, 16]], 2)
+	[[2.0, 4.0, 5.0], [6.0, 7.0, 8.0]]
+
+Test not list:
+	>>> matrix_divided(3, 3)
+	Traceback (most recent call last):
+        ...
+    	TypeError: matrix must be a matrix (list of lists) of integers/floats
+
+test list lengths not match:
+	>>> matrix_divided([[3, 4, 5], [6, 7]], 5)
+	Traceback (most recent call last):
+        ...
+        TypeError: Each row of the matrix must have the same size
+
+test zero division:
+	>>> matrix_divided([[4, 8, 10], [12, 14, 16]], 0)
+	Traceback (most recent call last):
+        ...
+        ZeroDivisionError: division by zero
+

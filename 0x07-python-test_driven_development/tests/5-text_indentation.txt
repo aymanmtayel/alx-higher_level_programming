@@ -1,0 +1,41 @@
+test file for indentation
+=========================
+
+using 5-text_indentation
+------------------------
+
+import module:
+	>>> text_indentation = __import__('5-text_indentation').text_indentation
+
+test for normal input:
+	>>> text_indentation("Hello, My name is: Ayman")
+	Hello, My name is:
+	<BLANKLINE>
+	Ayman
+
+test for large spaces:
+	>>> text_indentation("Hello  :   ayman    .   tayel")
+	Hello:
+	<BLANKLINE>
+	ayman.
+	<BLANKLINE>
+	tayel
+
+test for only the character:
+	>>> text_indentation("?")
+	?
+	<BLANKLINE>
+
+test for leading whitespace:
+	>>> text_indentation("             Ayman")
+	Ayman
+
+test for trailling whitespace:
+	>>> text_indentation("ayman      ")
+	ayman
+
+test for none:
+	>>> text_indentation()
+	Traceback (most recent call last):
+	...
+	TypeError: text_indentation() missing 1 required positional argument: 'text'

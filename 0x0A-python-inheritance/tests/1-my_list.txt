@@ -1,8 +1,8 @@
 """test for class MYList Inheritance"""
 =======================================
 
-import print_sorted from 1-my_list.py
--------------------------------------
+using 1-my_list
+---------------
 
 Import function from module:
 	>>> MyList = __import__('1-my_list').MyList

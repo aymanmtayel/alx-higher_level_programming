@@ -1,0 +1,34 @@
+"""test for class MYList Inheritance"""
+=======================================
+
+import print_sorted from 1-my_list.py
+-------------------------------------
+
+Import function from module:
+	>>> MyList = __import__('1-my_list').MyList
+
+test inheritance through Normal Input:
+	>>> test = MyList([1, 2, 3])
+	>>> test.append(4)
+	>>> test
+	[1, 2, 3, 4]
+
+test sorting through normal input:
+	>>> test = MyList([2, 1, 3])
+	>>> test.print_sorted()
+	[1, 2, 3]
+
+test empty list:
+	>>> test = MyList()
+	>>> test.print_sorted()
+	[]
+
+test negatives:
+	>>> test = MyList([-4, -2, -5])
+	>>> test.print_sorted()
+	[-5, -4, -2]
+
+test ordered list:
+	>>> test = MyList([1, 2, 3])
+	>>> test.print_sorted()
+	[1, 2, 3]

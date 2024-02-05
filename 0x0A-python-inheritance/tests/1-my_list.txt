@@ -42,3 +42,9 @@ test ordered list:
 	>>> test = MyList([1, 2, 3])
 	>>> test.print_sorted()
 	[1, 2, 3]
+
+test append empty list:
+	>>> lista = MyList()
+	>>> lista.append(15)
+	>>> lista
+	[15]

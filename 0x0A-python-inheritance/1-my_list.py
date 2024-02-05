@@ -6,4 +6,5 @@ class MyList(list):
     """My list class that has only one method (sort)"""
     def print_sorted(self):
         """method that print the list sorted"""
-        print(sorted(self))
+        sorted_list = sorted(self)
+        print(sorted_list)

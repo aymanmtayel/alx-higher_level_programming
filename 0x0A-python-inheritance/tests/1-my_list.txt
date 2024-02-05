@@ -7,6 +7,16 @@ import print_sorted from 1-my_list.py
 Import function from module:
 	>>> MyList = __import__('1-my_list').MyList
 
+test correct class type:
+	>>> test = MyList([1, 2, 3])
+	>>> type(test) == MyList
+	True
+
+test instance:
+	>>> test = MyList()
+	>>> isinstance(test, list)
+	True
+
 test inheritance through Normal Input:
 	>>> test = MyList([1, 2, 3])
 	>>> test.append(4)

@@ -2,6 +2,7 @@
 """JSON representation module"""
 import json
 
+
 def to_json_string(my_obj):
     """function to return the JSON representation of an object
 

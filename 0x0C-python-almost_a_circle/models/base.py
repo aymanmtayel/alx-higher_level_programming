@@ -30,7 +30,7 @@ class Base:
         """save a json object to a file"""
         if list_objs is not None:
             list_objs = [objects.to_dictionary() for objects in list_objs]
-        with open("{}.json".format(cls.__name__), "w", encoding="utf-8") as file:
+        with open("{}.json".format(cls.__name__), "w") as file:
             file.write(cls.to_json_string(list_objs))
 
     @staticmethod
@@ -54,7 +54,8 @@ class Base:
         try:
             with open(fname, "r", encoding="utf-8") as file:
                 reads = file.read()
-                instances = [cls.create(**items) for items in cls.from_json_string(reads)]
+                classjson = cls.from_json_string(reads)
+                instances = [cls.create(**items) for items in classjson]
                 return instances
         except FileNotFoundError:
             return []
@@ -67,7 +68,8 @@ class Base:
             write = csv.writer(file)
             for obj in list_objs:
                 if cls.__name__ == "Rectangle":
-                    write.writerow([obj.id, obj.width, obj.height, obj.x, obj.y])
+                    write.writerow([obj.id, obj.width,
+                                    obj.height, obj.x, obj.y])
                 elif cls.__name__ == "Square":
                     write.writerow([obj.id, obj.size, obj.x, obj.y])
 
@@ -82,11 +84,15 @@ class Base:
                 for line in read:
                     if cls.__name__ == "Rectangle":
                         instances.append(cls.create(id=int(line[0]),
-                                        width=int(line[1]), height=int(line[2]),
-                                        x=int(line[3]), y=int(line[4])))
+                                                    width=int(line[1]),
+                                                    height=int(line[2]),
+                                                    x=int(line[3]),
+                                                    y=int(line[4])))
                     elif cls.__name__ == "Square":
                         instances.append(cls.create(id=int(line[0]),
-                                        size=int(line[1]), x=int(line[2]), y=int(line[3])))
+                                                    size=int(line[1]),
+                                                    x=int(line[2]),
+                                                    y=int(line[3])))
                 return instances
         except FileNotFoundError:
             return []
@@ -101,7 +107,8 @@ class Base:
             instance.pensize(0)
             instance.penup()
             instance.pendown()
-            instance.setpos((obj.x + instance.pos()[0], obj.y - instance.pos()[1]))
+            instance.setpos((obj.x + instance.pos()[0],
+                            obj.y - instance.pos()[1]))
             instance.pensize(4)
             instance.forward(obj.width)
             instance.left(90)

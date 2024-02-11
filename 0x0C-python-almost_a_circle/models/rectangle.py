@@ -68,9 +68,9 @@ class Rectangle(Base):
         """method to validate the value entered"""
         if type(value) is not int:
             raise TypeError("{} must be an integer".format(name))
-        if not x_y and value < 0:
+        if not x_y and value <= 0:
             raise ValueError("{} must be > 0".format(name))
-        elif x_y and value <= 0:
+        if x_y and value < 0:
             raise ValueError("{} must be >= 0".format(name))
 
     def area(self):
@@ -93,18 +93,24 @@ class Rectangle(Base):
                     self.y, self.width, self.height)
 
     def update(self, *args, **kwargs):
-        """method to update the values of the rectangele instance based on args"""
+        """method to update the values of the rectangele
+        instance based on args"""
         if args:
-            if len(args) > 0:
+            if len(args) >= 0:
                 self.id = args[0]
-            if len(args) > 1:
+            if len(args) >= 1:
                 self.width = args[1]
-            if len(args) > 2:
+            if len(args) >= 2:
                 self.height = args[2]
-            if len(args) > 3:
+            if len(args) >= 3:
                 self.x = args[3]
-            if len(args) > 4:
+            if len(args) >= 4:
                 self.y = args[4]
         else:
             for key, value in kwargs.items():
                 setattr(self, key, value)
+
+    def to_dictionary(self):
+        """returns the dictionary reperesentation of a rectangle instance"""
+        return {"id": self.id, "width": self.__width, "height": self.__height,
+                "x": self.__x, "y": self.__y}

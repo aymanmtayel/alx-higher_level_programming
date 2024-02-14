@@ -20,70 +20,54 @@ class TestSquare(unittest.TestCase):
         self.assertEqual(r1.size, 2)
 
     def test_r_x_only(self):
-        r1 = Square(1, 2, 3)
+        r1 = Square(1, 2)
         self.assertEqual(r1.size, 1)
-        self.assertEqual(r1.height, 2)
-        self.assertEqual(r1.x, 3)
-        self.assertEqual(r1.y, 0)
+        self.assertEqual(r1.x, 2)
 
     def test_r_x_y(self):
-        r1 = Square(1, 2, 3, 4)
-        self.assertEqual(r1.width, 1)
-        self.assertEqual(r1.height, 2)
-        self.assertEqual(r1.x, 3)
-        self.assertEqual(r1.y, 4)
+        r1 = Square(1, 2, 3)
+        self.assertEqual(r1.size, 1)
+        self.assertEqual(r1.x, 2)
+        self.assertEqual(r1.y, 3)
 
     def test_r_width_str(self):
         with self.assertRaisesRegex(TypeError, "width must be an integer"):
             Square("1", 2)
 
     def test_r_height_str(self):
-        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+        with self.assertRaisesRegex(TypeError, "x must be an integer"):
             Square(1, "2")
 
     def test_r_x_str(self):
-        with self.assertRaisesRegex(TypeError, "x must be an integer"):
+        with self.assertRaisesRegex(TypeError, "y must be an integer"):
             Square(1, 2, "3")
 
-    def test_r_y_str(self):
-        with self.assertRaisesRegex(TypeError, "y must be an integer"):
-            Square(1, 2, 3, "4")
-
     def test_r_all_args(self):
-        r1 = Square(1, 2, 3, 4, 5)
-        self.assertEqual(r1.width, 1)
-        self.assertEqual(r1.height, 2)
-        self.assertEqual(r1.x, 3)
-        self.assertEqual(r1.y, 4)
-        self.assertEqual(r1.id, 5)
+        r1 = Square(1, 2, 3, 4)
+        self.assertEqual(r1.size, 1)
+        self.assertEqual(r1.x, 2)
+        self.assertEqual(r1.y, 3)
+        self.assertEqual(r1.id, 4)
 
     def test_r_neg_width(self):
         with self.assertRaisesRegex(ValueError, "width must be > 0"):
             Square(-1, 2)
 
     def test_r_neg_height(self):
-        with self.assertRaisesRegex(ValueError, "height must be > 0"):
+        with self.assertRaisesRegex(ValueError, "x must be >= 0"):
             Square(1, -2)
 
-    def test_r_zero_width(self):
+    def test_r_zero_size(self):
         with self.assertRaisesRegex(ValueError, "width must be > 0"):
             Square(0, 2)
 
-    def test_r_zero_height(self):
-        with self.assertRaisesRegex(ValueError, "height must be > 0"):
-            Square(1, 0)
-
     def test_r_neg_x(self):
-        with self.assertRaisesRegex(ValueError, "x must be >= 0"):
+        with self.assertRaisesRegex(ValueError, "y must be >= 0"):
             Square(1, 2, -3)
 
-    def test_r_neg_y(self):
-        with self.assertRaisesRegex(ValueError, "y must be >= 0"):
-            Square(1, 2, 3, -4)
-
     def test_r_area_with_all_args(self):
-        r1 = Square(1, 2, 3, 4, 5)
-        self.assertEqual(r1.area(), 2)
+        r1 = Square(3, 2, 3, 4)
+        self.assertEqual(r1.area(), 9)
 
 class TestSquare_display(unittest.TestCase):
     """unittest for testing __str__ and display of the rectangle
@@ -108,102 +92,98 @@ class TestSquare_display(unittest.TestCase):
         sys.stdout = sys.__stdout__
         return output
 
-    def test_str_width_height(self):
-        r1 = Square(1, 2)
+    def test_str_size(self):
+        r1 = Square(1)
         prints = TestSquare_display.printed(r1, "__str__")
-        cased = "[Square] ({}) 0/0 - 1/2".format(r1.id)
+        cased = "[Square] ({}) 0/0 - 1".format(r1.id)
         self.assertEqual(cased, prints.getvalue().rstrip('\n'))
 
     def test_display_w_h(self):
-        r1 = Square(2, 3)
+        r1 = Square(2)
         prints = TestSquare_display.printed(r1, "display")
-        cased = "##\n##\n##\n"
+        cased = "##\n##\n"
         self.assertEqual(cased, prints.getvalue())
 
     def test_display_x(self):
-        r1 = Square(2, 3, 1)
+        r1 = Square(2, 3)
         prints = TestSquare_display.printed(r1, "display")
-        cased = " ##\n ##\n ##\n"
+        cased = "   ##\n   ##\n"
         self.assertEqual(cased, prints.getvalue())
 
     def test_all_display(self):
-        r1 = Square(2, 3, 1, 1)
+        r1 = Square(2, 3, 1)
         prints = TestSquare_display.printed(r1, "display")
-        cased = "\n ##\n ##\n ##\n"
+        cased = "\n   ##\n   ##\n"
         self.assertEqual(cased, prints.getvalue())
 
 class TestSquare_dictionary(unittest.TestCase):
     """class for testing dictionaries in Square"""
 
     def test_to_dictionary_all_n(self):
-        r1 = Square(1, 2, 3 ,4 ,5)
-        printed = {'width': 1, 'height': 2, 'x': 3, 'y': 4, 'id': 5}
+        r1 = Square(1, 2, 3 ,4)
+        printed = {'size': 1, 'x': 2, 'y': 3, 'id': 4}
         self.assertEqual(printed, r1.to_dictionary())
 
 class TestSquare_update(unittest.TestCase):
     """class for testing update values in rectangle class"""
 
     def test_update_id(self):
-        r1 = Square(1, 2, 3, 4, 5)
+        r1 = Square(1, 2, 3, 4)
         r1.update(89)
-        self.assertEqual("[Square] (89) 3/4 - 1/2", str(r1))
+        self.assertEqual("[Square] (89) 2/3 - 1", str(r1))
 
-    def test_update_id_w(self):
-        r1 = Square(2, 2, 3, 4, 5)
+    def test_update_id_s(self):
+        r1 = Square(2, 2, 3, 4)
         r1.update(89, 1)
-        self.assertEqual("[Square] (89) 3/4 - 1/2", str(r1))
+        self.assertEqual("[Square] (89) 2/3 - 1", str(r1))
 
-    def test_update_id_w_h(self):
-        r1 = Square(3, 4, 3, 4, 5)
+    def test_update_id_s_x(self):
+        r1 = Square(3, 4, 3, 4)
         r1.update(89, 1, 2)
-        self.assertEqual("[Square] (89) 3/4 - 1/2", str(r1))
+        self.assertEqual("[Square] (89) 2/3 - 1", str(r1))
 
-    def test_update_id_w_h_x(self):
-        r1 = Square(5, 5, 5, 5, 5)
-        r1.update(89, 1, 2, 3, 4)
-        self.assertEqual("[Square] (89) 3/4 - 1/2", str(r1))
+    def test_update_id_s_x_y(self):
+        r1 = Square(5, 5, 5, 5)
+        r1.update(89, 1, 2, 3)
+        self.assertEqual("[Square] (89) 2/3 - 1", str(r1))
 
     def test_update_kwarg_id(self):
-        r1 = Square(1, 2, 3, 4, 5)
+        r1 = Square(1, 2, 3, 4)
         r1.update(**{'id': 89})
-        self.assertEqual("[Square] (89) 3/4 - 1/2", str(r1))
+        self.assertEqual("[Square] (89) 2/3 - 1", str(r1))
 
-    def test_update_kwarg_id_width(self):
-        r1 = Square(2, 2, 3, 4, 5)
-        r1.update(**{'id':89, 'width': 1})
-        self.assertEqual("[Square] (89) 3/4 - 1/2", str(r1))
+    def test_update_kwarg_id_size(self):
+        r1 = Square(2, 2, 3, 4)
+        r1.update(**{'id':89, 'size': 1})
+        self.assertEqual("[Square] (89) 2/3 - 1", str(r1))
+
+    def test_update_kwarg_id_size_x(self):
+        r1 = Square(2, 3, 3, 4)
+        r1.update(**{'id':89, 'size': 1, 'x': 2})
+        self.assertEqual("[Square] (89) 2/3 - 1", str(r1))
 
     def test_update_kwarg_id_width_height(self):
-        r1 = Square(2, 3, 3, 4, 5)
-        r1.update(**{'id':89, 'width': 1, 'height': 2})
-        self.assertEqual("[Square] (89) 3/4 - 1/2", str(r1))
-
-    def test_update_kwarg_id_width_height(self):
-        r1 = Square(2, 3, 50, 60, 700)
-        r1.update(**{'id':89, 'width': 1, 'height': 2, 'x': 3, 'y': 4})
-        self.assertEqual("[Square] (89) 3/4 - 1/2", str(r1))
+        r1 = Square(2, 3, 50, 60)
+        r1.update(**{'id':89, 'size': 1, 'x': 2, 'y': 3})
+        self.assertEqual("[Square] (89) 2/3 - 1", str(r1))
 
 class TestSquare_create(unittest.TestCase):
-    """class for testing create values in rectangle class"""
+    """class for testing create values in Square class"""
     def test_create_id(self):
         r1 = Square.create(**{"id": 89})
-        self.assertEqual("[Square] (89) 0/0 - 1/1", str(r1))
+        self.assertEqual("[Square] (89) 1/0 - 1", str(r1))
 
     def test_create_id_width(self):
-        r1= Square.create(**{"id": 89, "width": 2})
-        self.assertEqual("[Square] (89) 0/0 - 2/1", str(r1))
+        r1= Square.create(**{"id": 89, "size": 2})
+        self.assertEqual("[Square] (89) 1/0 - 2", str(r1))
     
     def test_create_id_width_height(self):
-        r1= Square.create(**{"id": 89, "width": 1, "height": 2})
-        self.assertEqual("[Square] (89) 0/0 - 1/2", str(r1))
-
-    def test_create_id_width_height_x(self):
-        r1= Square.create(**{"id": 89, "width": 1, "height": 2, "x": 10})
-        self.assertEqual("[Square] (89) 10/0 - 1/2", str(r1))
+        r1= Square.create(**{"id": 89, "size": 1, "x": 2})
+        self.assertEqual("[Square] (89) 2/0 - 1", str(r1))
 
     def test_create_id_width_height_x_y(self):
-        r1= Square.create(**{"id": 89, "width": 1, "height": 2, "x": 10, "y":20})
-        self.assertEqual("[Square] (89) 10/20 - 1/2", str(r1))
+        r1= Square.create(**{"id": 89, "size": 1, "x": 10, "y":20})
+        self.assertEqual("[Square] (89) 10/20 - 1", str(r1))
 
 import unittest
 import os
@@ -227,7 +207,7 @@ class TestSquare_save(unittest.TestCase):
         Square.save_to_file([r1])
         with open("Square.json", "r") as file:
             data = json.load(file)
-        self.assertEqual(data, [{"id": r1.id, "width": 1, "height": 2, "x": r1.x, "y": r1.y}])
+        self.assertEqual(data, [{"id": r1.id, "size": r1.size, "x": r1.x, "y": r1.y}])
 
 
 

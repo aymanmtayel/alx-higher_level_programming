@@ -188,10 +188,11 @@ class TestSquare_create(unittest.TestCase):
 import unittest
 import os
 import json
+from models.base import Base
 class TestSquare_save(unittest.TestCase):
     """class for testing saving to file for Square Module"""
 
-    def setUp(self):
+    def cleaner(self):
         # Clean up any existing file before each test
         if os.path.exists("Square.json"):
             os.remove("Square.json")
@@ -200,7 +201,10 @@ class TestSquare_save(unittest.TestCase):
         Square.save_to_file([])
         with open("Square.json", "r") as file:
             data = json.load(file)
+            loaded = Square.load_from_file()
             self.assertEqual(data, [])
+            self.assertEqual(type(loaded), list)
+            self.assertEqual(len(loaded), len(data))
 
     def test_save_normal(self):
         r1 = Square(1, 2)

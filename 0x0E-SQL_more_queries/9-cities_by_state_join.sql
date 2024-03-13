@@ -1,4 +1,4 @@
 -- script that lists all cities contained in the database hbtn_0d_usa.
-SELECT c.id AS id, c.name AS name, s.name AS state FROM cities c
-INNER JOIN states s ON c.state_id = s.id
-ORDER BY c.id ASC;
+SELECT cities.id, cities.name, states.name FROM cities, states
+WHERE cities.state_id = states.id
+ORDER BY cities.id ASC;

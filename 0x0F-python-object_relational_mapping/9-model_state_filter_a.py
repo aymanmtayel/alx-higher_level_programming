@@ -9,10 +9,12 @@ from model_state import Base, State
 
 if __name__ == "__main__":
     URL = "mysql+mysqldb://{}:{}@localhost/{}"
-    engine = create_engine(URL.format(argv[1], argv[2], argv[3]), pool_pre_ping=True)
+    engine = create_engine(URL.format(argv[1], argv[2], argv[3]),
+                           pool_pre_ping=True)
     Session = sessionmaker(bind=engine)
     session = Session()
-    states_a = session.query(State).order_by(State.id).filter(State.name.like('%a%'))
+    filter_a = State.name.like('%a%')
+    states_a = session.query(State).order_by(State.id).filter(filter_a)
     for state in states_a:
         print("{}: {}".format(state.id, state.name))
     session.close

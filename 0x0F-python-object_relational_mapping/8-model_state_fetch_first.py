@@ -12,9 +12,9 @@ if __name__ == "__main__":
     engine_create = create_engine(URL.format(argv[1], argv[2], argv[3]))
     Session = sessionmaker(bind=engine_create)
     session = Session()
-    states = session.query(State).order_by(State.id).limit(1)
-    if states:
-        print("{}: {}".format(states.id,states.name))
+    stat = session.query(State).order_by(State.id).limit(1).first()
+    if stat:
+        print("{}: {}".format(stat.id,stat.name))
     else:
         print("Nothing")
     session.close()

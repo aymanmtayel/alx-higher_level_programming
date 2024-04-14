@@ -10,7 +10,6 @@ if __name__ == "__main__":
     """create our engine and connect to our database"""
     URL = "mysql+mysqldb://{}:{}@localhost:3306/{}"
     engine_create = create_engine(URL.format(argv[1], argv[2], argv[3]))
-    Base.metadata.create_all(engine_create)
     Session = sessionmaker(bind=engine_create)
     session = Session()
     states = session.query(State).order_by(State.id).limit(1)

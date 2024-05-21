@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@cypress/request": "^3.0.1",
+    "request": "^2.88.2",
+    "tough-cookie": "^4.1.4"
+  }
+}
